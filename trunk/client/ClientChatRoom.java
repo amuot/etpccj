@@ -56,6 +56,8 @@ public class ClientChatRoom extends TCPClient implements Chatroom, Runnable {
 	public void quit(Chatter c) {
 		try {
 			sendMessage(new Message(Header.QUITCR, c.getAlias()));
+			doRun = false;
+			Thread.currentThread().interrupt();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -69,11 +71,10 @@ public class ClientChatRoom extends TCPClient implements Chatroom, Runnable {
 				Message m = getMessage();
 				System.out.println(m);
 				if(m.getHead()==Header.RECV_MSG) {
-					System.out.println(leChatter.getAlias() +" recoit "+m.getData().firstElement());
+					leChatter.receiveAMessage(m.getData().firstElement(), null);
 				}
 				if(m.getHead()==Header.QUITCR){
 					doRun = false;
-					disconnect();
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
