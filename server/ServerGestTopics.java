@@ -31,7 +31,6 @@ public class ServerGestTopics extends TCPServer implements TopicsManager {
 				}
 				if(m.getHead()==Header.CREATE_TOPIC) {
 					createTopic(m.getData().firstElement());
-//					stopServer();
 				}
 				if(m.getHead()==Header.JOIN_TOPIC) {
 					Chatroom CR = joinTopic(m.getData().firstElement());
