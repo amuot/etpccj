@@ -15,7 +15,6 @@ public class TCPClient implements MessageConnection {
 	protected Socket sock;
 	
 	public Message getMessage() throws IOException {	
-//		in = new ObjectInputStream( sock.getInputStream() ) ;
 		try {
 			Message m = (Message) in.readObject(); 
 			return  m;
@@ -26,10 +25,8 @@ public class TCPClient implements MessageConnection {
 	}
 
 	public void sendMessage(Message m) throws IOException {
-//		out = new ObjectOutputStream(sock.getOutputStream());
 		out.writeObject(m);
 		out.flush();
-//		out.close();
 	}
 	
 	public void setServer(InetAddress adr, int port) {
