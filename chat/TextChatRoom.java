@@ -31,6 +31,11 @@ public class TextChatRoom implements Chatroom {
 	public void quit(Chatter c) {
 		System.out.println("(Message de Chatroom : "+Topic+") "+c.getAlias()+" a quitté la room.");
 		Participants.remove(c);
+		
+		for (Chatter ct : Participants)
+		{
+			System.out.println(ct.getAlias()+" est encore la!");
+		}	
 	}
 	
 	

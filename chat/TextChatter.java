@@ -13,6 +13,6 @@ public class TextChatter implements Chatter {
 	}
 
 	public void receiveAMessage(String msg, Chatter c) {
-		
+		System.out.println(this.Alias +" recoit "+msg);
 	}
 }
