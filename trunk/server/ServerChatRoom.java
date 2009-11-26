@@ -34,9 +34,8 @@ public class ServerChatRoom extends TCPServer implements Chatter, Chatroom {
 					post(m.getData().firstElement(), this);
 				}
 				if(m.getHead()==Header.QUITCR) {
-					sendMessage(new Message(Header.QUITCR));
 					quit(this);
-//					doRun = false;
+					sendMessage(new Message(Header.QUITCR));
 				}
 			} catch (IOException e) {
 				e.printStackTrace();
