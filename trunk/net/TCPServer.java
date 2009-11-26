@@ -49,7 +49,7 @@ public abstract class TCPServer implements MessageConnection, Runnable, Cloneabl
 		}
 	}
 	
-	public void startServer(int port) {
+	public synchronized void startServer(int port) {
 		try {
 			treatClient = false;
 			waitSocket = new ServerSocket( port ) ;
@@ -62,13 +62,12 @@ public abstract class TCPServer implements MessageConnection, Runnable, Cloneabl
 		}
 	}
 	
-	@SuppressWarnings("deprecation")
-	public void stopServer() {
+//	@SuppressWarnings("deprecation")
+	public synchronized void stopServer() {
 		try {
 			waitSocket.close() ;
 			doRun = false;	
-			this.thread.stop();
-//			out.close();
+//			this.thread.stop();
 		} catch(IOException e) { e.printStackTrace(); }
 	}
 	
@@ -80,7 +79,6 @@ public abstract class TCPServer implements MessageConnection, Runnable, Cloneabl
 	
 	@Override
 	public Message getMessage() throws IOException {
-//		in = new ObjectInputStream(commSocket.getInputStream());
 		try {
 			Message m = (Message) in.readObject();
 			return  m;
@@ -92,11 +90,8 @@ public abstract class TCPServer implements MessageConnection, Runnable, Cloneabl
 
 	@Override
 	public void sendMessage(Message m) throws IOException {
-//		out = new ObjectOutputStream(commSocket.getOutputStream());
 		out.writeObject(m);
 		out.flush();
-		
-//		out.close();
 	}
 
 }
